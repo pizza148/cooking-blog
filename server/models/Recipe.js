@@ -30,5 +30,7 @@ const recipeSchema = new Schema({
     }
 
 });
-
+recipeSchema.index({name:'text',description:'text'});
+//wildCard Indexing
+//recipeSchema.index({"$**":'text'})
 module.exports = mongoose.model("Recipes",recipeSchema);
