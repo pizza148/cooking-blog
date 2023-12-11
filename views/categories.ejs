@@ -20,7 +20,7 @@
 </div>
 
 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-  <% if (typeof categoriesById != 'undefined' && categoriesById.length >0) { %>
+  <% if (typeof categoriesById != 'undefined') { %>
     <% categoriesById.forEach(recipe => { %>
       <a href="/recipe/<%= recipe._id %>"class="col text-center category__link">
         <div class="category__image category__image--large shadow">

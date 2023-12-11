@@ -2,7 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const connectDB = require('./server/config/db.js');
-
+const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 
 
@@ -16,7 +19,14 @@ app.use(expressLayout);
 app.set('view engine','ejs');
 app.set('layout','./layouts/main');
 
-
+app.use(cookieParser('CookingBlogSecure'));
+app.use(session({
+    secret:'CookingBlogSecrectss',
+    saveUninitialized:true,
+    resave:true,
+}));
+app.use(flash());
+app.use(fileUpload());
 
 const routes = require('./server/routes/recipeRoutes.js');
 

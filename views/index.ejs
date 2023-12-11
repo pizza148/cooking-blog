@@ -1,6 +1,6 @@
 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
   <div class="col-10 col-sm-8 col-lg-6">
-    <img src="/img/food.jpg"  class=" rounded-5 d-block mx-lg-auto  img-fluid" alt="Bootstrap Themes" width="607" height="510" loading="lazy">
+    <img src="/img/—Pngtree—pizza red food_9116418.png"  class=" rounded-5 d-block mx-lg-auto  img-fluid" alt="Bootstrap Themes" width="510" height="500" loading="lazy">
   </div>
   <div class="col-lg-6">
     <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Responsive left-aligned hero with image</h1>
@@ -56,7 +56,7 @@
 <section class="pb-4 pt-4">
   <div class="d-flex mb-2 align-items-center">
     <h1>Thai Recipe</h1>
-    <a href="/categories/thai" class="ms-auto">View More</a>
+    <a href="/categories/Thai" class="ms-auto">View More</a>
   </div>
   <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
     <% if (typeof food != 'undefined' && food.thai.length >0) { %>
@@ -78,7 +78,7 @@
 <section class="pb-4 pt-4">
   <div class="d-flex mb-2 align-items-center">
     <h1>American Recipe</h1>
-    <a href="/categories/american" class="ms-auto">View More</a>
+    <a href="/categories/American" class="ms-auto">View More</a>
   </div>
   <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
     <% if (typeof food != 'undefined' && food.american.length >0) { %>
@@ -100,7 +100,7 @@
 <section class="pb-4 pt-4">
   <div class="d-flex mb-2 align-items-center">
     <h1>Chinese Recipe</h1>
-    <a href="/categories/chinese" class="ms-auto">View More</a>
+    <a href="/categories/Chinese" class="ms-auto">View More</a>
   </div>
   <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
     <% if (typeof food != 'undefined' && food.chinese.length >0) { %>
@@ -119,14 +119,71 @@
 </section>
 <!-- chinese end -->
 <!-- submit section -->
-  <section class="px-4 py-5 my-5 text-center">
+  <section class="px-4 py-2 my-2 text-center">
     <img src="/img/publish.png" class="d-block mx-auto img-fluid" alt="" loading="lazy" width="566" height="208">
     <h1 class="display-5 fw-bold">Publish your recipe for free today</h1>
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4">Publish your recipe in front of thounds people free today</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <a href="" class="btn btn-primary btn-dark btn-lg">Submit Recipe</a>
+        <a href="/submit-recipe" class="btn btn-primary btn-dark btn-lg">Submit Recipe</a>
       </div>
     </div>
   </section>
+  <section class="py-3 my-5" id="aboutUs">
+    <div class="row">
+      <div class="col-12  text-center py-5" >
+        <h1 class="text-underline">ABOUT</h1>
+        <p class="lead">Good Food Starts With Good Ingredients</p>
+      </div>
+    </div>
+  </section>
+  <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3 py-4">
+    <% if (categories != 'undefined') { %>
+     <% categories.forEach(category=> { %>
+      <a href="/categories/<%= category.name %>" class="col text-center category__link">
+        <div class="category__image shadow">
+          <img src="/img/<%= category.img %>" alt="<%= category.img %>" loading="lazy">
+        </div>
+        <div class="pt-1"><%= category.name %></div>
+      </a>
+     <% }) %>
+    <% } %>
+    <a href="/categories" class="col text-center category__link">
+      <div class="category__image shadow">
+        <img src="/img/americanfood.jpg" alt="" loading="lazy">
+      </div>
+      <div class="pt-1">View All</div>
+    </a>
+  </div>
 <!-- submit section end -->
+
+
+<section class=" contact-form py-2 mt-3" id="contact">
+  <div class="contact-image">
+      <img src="https://img.freepik.com/premium-vector/cartoon-pizza-giving-thumb-up_590604-193.jpg" alt="rocket_contact"/>
+  </div>
+  <form method="post">
+      <h3 class="text-center py-3">Drop Us a Message</h3>
+     <div class="row">
+          <div class="col-12 col-md-6">
+              <div class="form-group mb-3">
+                  <input type="text" name="txtName" class="form-control" placeholder="Your Name *" value="" />
+              </div>
+              <div class="form-group mb-3">
+                  <input type="text" name="txtEmail" class="form-control" placeholder="Your Email *" value="" />
+              </div>
+              <div class="form-group mb-3">
+                  <input type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number *" value="" />
+              </div>
+              <div class="form-group mb-3">
+                  <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+              </div>
+          </div>
+      </div>
+  </form>
+</section>

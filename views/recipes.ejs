@@ -1,6 +1,12 @@
 
 <% if (recipes != null) { %>
-    <h1 class="pb-4">recipe</h1>
+    <div class="d-flex mb-2 align-items-center">
+        <h1>Recipe</h1>
+        <div class="ms-auto">
+            <a href="/edit/<%= recipes._id %>" class=" rounded-0 btn btn-dark">Edit</a>
+            <a href="/delete/<%= recipes._id %>" class="rounded-0 btn btn-danger">Delete</a>
+        </div>
+      </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>

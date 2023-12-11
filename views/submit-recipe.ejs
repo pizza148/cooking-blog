@@ -8,7 +8,17 @@
   <div class="row justify-content-center">
   
     <div class="col-8">
-  
+      <% if (infoSubmitObj !='') { %>
+        <div class="alert alert-success" role="alert">
+          <%= infoSubmitObj %>
+        </div>
+      <% } %>
+      <% if (infoErrorObj !='') { %>
+        <div class="alert alert-danger" role="alert">
+          <%= infoErrorObj[0].message %>
+        </div>
+      <% } %>
+      
       <form action="/submit-recipe" enctype="multipart/form-data" method="POST">
       
         <div class="row g-3">
@@ -20,7 +30,7 @@
   
           <div class="col-12">
             <label for="name" class="form-label">Recipe Name</label>
-            <input type="text" name="name" id="name" class="form-control" required>
+            <input type="text" name="name" id="name" class="form-control" >
           </div>
           
           <div class="col-12">
@@ -37,11 +47,9 @@
               </div>
             </div>
           </div>
-  
           <div class="col-12">
             <button type="button" class="btn btn-outline-primary" id="addIngredientsBtn">+ Ingredient</button>
           </div>
-  
           <div class="col-12">
             <label for="category">Select Category</label>
             <select class="form-select form-control" name="category" aria-label="Category">

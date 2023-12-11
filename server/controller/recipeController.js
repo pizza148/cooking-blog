@@ -8,7 +8,7 @@ exports.homePage = async (req, res) => {
     try {
         const limitNumber = 5;
         const categories = await Category.find({}).limit(limitNumber);
-        const latest = await Recipe.find({}).limit(limitNumber);
+        const latest = await Recipe.find({}).sort({_id:-1}).limit(limitNumber);
         const thai = await Recipe.find({category:'Thai'}).limit(limitNumber);
         const american = await Recipe.find({category:'American'}).limit(limitNumber);
         const chinese = await Recipe.find({category:'Chinese'}).limit(limitNumber);
@@ -52,7 +52,7 @@ exports.exploreCategoreiesById = async(req,res)=>{
     try {
         const id = req.params.id;
         const limitNumber = 20;
-        const categoriesById = await Recipe.find({category:id}).limit(limitNumber);
+        const categoriesById = await Recipe.find({ category:id }).limit(limitNumber);
         res.render('categories', { title: "Cooking Blog - Categories",categoriesById });
     } catch (error) {
         res.satus(500).send({message:"error occured" || error});
@@ -103,8 +103,62 @@ exports.exploreRandom = async (req,res)=>{
  */
 exports.submitRecipe = async (req,res)=>{
     try {
-        res.render('submit-recipe',{title:"Cooking Blog-Submit Recipt"})
+        const infoErrorObj = req.flash('infoErrors');
+        const infoSubmitObj = req.flash('infoSubmit');
+        res.render('submit-recipe',{ title:"Cooking Blog-Submit Recipt",infoErrorObj,infoSubmitObj })
     } catch (error) {
         res.satus(500).send({message:"Error Occurend" || error})
     }
+}
+
+/**
+ * Post submit recipe
+ */
+exports.submitRecipePost = async (req,res)=>{
+    
+    try {
+        let imageFileUpload;
+        let newImage ;
+        let uploadPath;
+        if(!req.files || Object.keys(req.files).length === 0){
+            console.log('No Match File');
+        }else{
+            imageFileUpload = req.files.image;
+            newImage = Date.now()+imageFileUpload.name;
+            uploadPath = require('path').resolve('./')+'/public/upload/' + newImage;
+            imageFileUpload.mv(uploadPath,(err)=>{
+                if(err) return res.satus(500).send(err);
+            })
+        }
+
+        const newRecipe = new Recipe({
+            name:req.body.name,
+            description:req.body.description,
+            email:req.body.email,
+            category:req.body.category,
+            ingredients:req.body.ingredients,
+            image:newImage
+        })
+        await newRecipe.save();
+
+        req.flash('infoSubmit','Recipe has been added');
+        res.redirect('/submit-recipe');
+    } catch (error) {
+        req.flash('infoErrors',error);
+        res.redirect('/submit-recipe');
+    }
+    
+}
+/**
+ * edit Recipe get
+ */
+exports.editRecipe = async(req,res)=>{
+    try {
+        const id = req.params.id;
+        const recipes = await Recipe.findById(id);
+        res.render('edit-recipes',{title:"Cooking Blog - Edit Recipe",recipes})
+    } catch (error) {
+        console.log(error);
+    }
+    
 }
